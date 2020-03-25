@@ -1,24 +1,25 @@
 import React from "react";
 import { DIFFICULTY } from "./utils";
-import styled, { css } from "styled-components";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const HeaderContent = styled.div`
-  padding: 1em;
-  display: flex;
-  justify-content: space-between;
-`;
+const styles = {
+  padding: `1em`,
+  display: `flex`,
+  justifyContent: `space-between`
+};
 
 const Header = props => {
   return (
     <div style={{ width: `100%` }}>
-      <HeaderContent>
-        <div>High Score: 0</div>
+      <div style={styles}>
+        <div>High Score: {props.highScore}</div>
         <Select
           style={{ color: `white` }}
           value={props.difficulty}
-          onChange={props.setDifficulty}
+          onChange={event => {
+            props.setDifficulty(event.target.value);
+          }}
         >
           {Object.values(DIFFICULTY).map(key => {
             return (
@@ -28,7 +29,7 @@ const Header = props => {
             );
           })}
         </Select>
-      </HeaderContent>
+      </div>
     </div>
   );
 };

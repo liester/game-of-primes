@@ -23,6 +23,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [hasEnded, setHasEnded] = useState(false);
   const [difficulty, setDifficulty] = useState(DIFFICULTY.EASY);
+  const [highScore, setHighScore] = useState(0);
   const interval = useRef();
 
   const resetGame = () => {
@@ -59,18 +60,26 @@ function App() {
   useEffect(() => {
     if (hasEnded) {
       clearInterval(interval.current);
+      if (score > highScore) {
+        setHighScore(score);
+      }
     }
-  }, [hasEnded]);
+  }, [hasEnded, highScore, score]);
 
   return (
     <div className={cx("main")}>
-      <Header setDifficulty={setDifficulty} difficulty={difficulty} />
+      <Header
+        setDifficulty={setDifficulty}
+        difficulty={difficulty}
+        highScore={highScore}
+      />
       <MainContent>
         {hasEnded && <GameOver />}
         {hasEnded && timeRemaining !== 0 && crappyFactorial(currentNumber)}
         <Score>Score:{score}</Score>
         <div className={`time-remaining`}>{timeRemaining}</div>
-        <div>{currentNumber}</div>
+        <div style={{ fontSize: "140px" }}>{currentNumber}</div>
+        <div>Is it Prime?</div>
         {!hasEnded && (
           <ButtonGroup>
             <Button

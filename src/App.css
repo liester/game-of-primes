@@ -8,5 +8,6 @@
 }
 
 .time-remaining {
-  font-size: calc(70px + 2vmin);
+  font-size: calc(40px + 2vmin);
+  color: grey;
 }
